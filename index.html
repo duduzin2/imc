@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #e0f7fa;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.2);
+            width: 600px; /* Aumente a largura do container */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .imagem {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #00796b;
+            text-align: center;
+        }
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #00796b;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px;
+            background-color: #00796b;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #004d40;
+        }
+        .resultado-container {
+            display: flex;
+            margin-top: 20px;
+            width: 100%;
+            justify-content: space-between; /* Para espaçar os elementos */
+        }
+        #resultado {
+            flex: 1;
+            padding: 10px;
+            background-color: #c8e6c9;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            line-height: 1.5;
+        }
+        .dicas {
+            flex: 1;
+            padding: 10px;
+            background-color: #ffe0b2;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="./1.png" alt="Balança" class="imagem">
+        <h1>Calculadora de IMC</h1>
+        <form id="imcForm" onsubmit="event.preventDefault(); calcularIMC();">
+            <input type="number" id="peso" placeholder="Peso (kg)" required>
+            <input type="number" id="altura" step="0.01" placeholder="Altura (m)" required>
+            <button type="submit">Calcular IMC</button>
+        </form>
+        <div class="resultado-container">
+            <div id="resultado"></div>
+            <div class="dicas" id="dicas"></div>
+        </div>
+    </div>
+
+    <script>
+        function calcularIMC() {
+            const peso = parseFloat(document.getElementById('peso').value);
+            const altura = parseFloat(document.getElementById('altura').value);
+            const imc = peso / (altura * altura);
+            let resultadoTexto = `Seu IMC é ${imc.toFixed(2)}. `;
+            let dicasTexto = '';
+
+            if (imc < 18.5) {
+                resultadoTexto += 'Você está abaixo do peso.';
+                dicasTexto = 'Dicas: Inclua mais calorias na sua dieta, como frutas secas, abacate e batata doce. Faça refeições menores e mais frequentes.';
+            } else if (imc < 24.9) {
+                resultadoTexto += 'Seu peso está normal.';
+                dicasTexto = 'Dicas: Continue mantendo uma dieta equilibrada e exercitando-se regularmente. Considere fazer exercícios de resistência.';
+            } else if (imc < 29.9) {
+                resultadoTexto += 'Você está com sobrepeso.';
+                dicasTexto = 'Dicas: Considere reduzir o consumo de açúcares e gorduras. Aumente a atividade física, como caminhadas e treinos.';
+            } else {
+                resultadoTexto += 'Você está obeso.';
+                dicasTexto = 'Dicas: Foque em uma dieta rica em frutas, vegetais e grãos integrais. Considere consultar um nutricionista para um plano personalizado.';
+            }
+
+            document.getElementById('resultado').innerText = resultadoTexto;
+            document.getElementById('dicas').innerText = dicasTexto;
+        }
+    </script>
+</body>
+</html>
